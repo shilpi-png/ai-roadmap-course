@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Engineering Roadmap — Course</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">AI</span>
+        <div>
+          <h1 id="course-title"></h1>
+          <p id="course-subtitle" class="subtitle"></p>
+        </div>
+      </div>
+      <div class="overall">
+        <div class="overall-label">
+          <span id="overall-text"></span>
+        </div>
+        <div class="progress-track"><div class="progress-fill" id="overall-fill"></div></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="person-tabs" id="person-tabs"></nav>
+
+  <div class="layout">
+    <aside class="sidebar" id="sidebar"></aside>
+    <main class="content" id="content"></main>
+  </div>
+
+  <footer class="foot">
+    Progress is saved in this browser (localStorage), separately for each person.
+  </footer>
+
+  <script src="course-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
