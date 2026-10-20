@@ -208,9 +208,30 @@ body {
 .block-type.video { background: #fce8e6; color: #c5221f; }
 .block-type.task { background: var(--green-soft); color: var(--green); }
 .block-title { font-size: 16px; font-weight: 700; margin: 0; }
-.block-body { color: #333; font-size: 14.5px; white-space: pre-line; }
+.block-body { color: #333; font-size: 14.5px; }
+.block-body p { margin: 0 0 10px; }
+.block-body p:last-child { margin-bottom: 0; }
+.block-body ul { margin: 0 0 10px; padding-left: 22px; }
+.block-body li { margin-bottom: 4px; }
 .block-body a { color: var(--blue); }
 .block-detail { color: var(--muted); font-size: 14px; margin-top: 6px; }
+.block-detail p { margin: 0 0 8px; }
+.block-detail p:last-child { margin-bottom: 0; }
+.block-detail ul { margin: 0 0 8px; padding-left: 22px; }
+.block-detail li { margin-bottom: 3px; }
+
+/* inline code — the thing that makes commands readable */
+code {
+  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  font-size: 0.86em;
+  background: #eef1f5;
+  color: #0f3460;
+  border: 1px solid #dde3ea;
+  border-radius: 5px;
+  padding: 1.5px 6px;
+  white-space: nowrap;
+}
+.block-body code, .block-detail code { background: #eef1f5; }
 
 /* video embed */
 .video-frame {

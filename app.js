@@ -41,6 +41,36 @@ function taskKey(phaseId, blockIndex) {
   return `${phaseId}:${blockIndex}`;
 }
 
+// ---------- tiny markdown (code, bold, links, lists) ----------
+function esc(s) {
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+function inline(s) {
+  s = esc(s);
+  s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  return s;
+}
+function md(text) {
+  const lines = String(text).split("\n");
+  let html = "";
+  let inList = false;
+  for (const raw of lines) {
+    const line = raw.replace(/\s+$/, "");
+    const li = line.match(/^\s*[-*]\s+(.*)$/);
+    if (li) {
+      if (!inList) { html += "<ul>"; inList = true; }
+      html += "<li>" + inline(li[1]) + "</li>";
+    } else {
+      if (inList) { html += "</ul>"; inList = false; }
+      if (line.trim() !== "") html += "<p>" + inline(line) + "</p>";
+    }
+  }
+  if (inList) html += "</ul>";
+  return html;
+}
+
 // ---------- rendering ----------
 
 function render() {
@@ -144,7 +174,7 @@ function renderBlock(block, i) {
           <span class="block-type lesson">Lesson</span>
           <h3 class="block-title">${block.title}</h3>
         </div>
-        <div class="block-body">${block.body}</div>
+        <div class="block-body">${md(block.body)}</div>
       </div>`;
   }
 
@@ -158,7 +188,7 @@ function renderBlock(block, i) {
           <span class="block-type video">Video</span>
           <h3 class="block-title">${block.title}</h3>
         </div>
-        ${block.detail ? `<div class="block-detail">${block.detail}</div>` : ""}
+        ${block.detail ? `<div class="block-detail">${md(block.detail)}</div>` : ""}
         ${embed}
         <a class="video-link" href="${block.link}" target="_blank" rel="noopener">Open on the official site ↗</a>
       </div>`;
@@ -179,7 +209,7 @@ function renderBlock(block, i) {
           <span class="block-type task">Assignment</span>
           <h3 class="block-title">${block.title}${otherName}</h3>
         </div>
-        <div class="block-detail">${block.detail}</div>
+        <div class="block-detail">${md(block.detail)}</div>
       </div>
     </div>`;
 }
